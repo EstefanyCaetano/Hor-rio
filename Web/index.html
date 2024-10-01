@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reunião</title>
+    <link rel="stylesheet" href="./index.css">
+</head>
+<body>
+    <h1>Duração da Reunião</h1>
+
+    <section class="container--calculo">
+
+    <div>
+        <span>Início</span>
+        <input type="time" id="hora1">
+    </div> <br>
+    <div>
+        <span>Fim</span>
+        <input type="time" id="hora2">
+    </div> <br>
+    <button onclick="calculo()">Calcular</button>
+
+    <h3>A reunião durou: <span id="resultado"></span></h3>
+    </section>
+
+    <script>
+        function calculo() {
+            var h1 = document.querySelector('#hora1').value;
+            var h2 = document.querySelector('#hora2').value;
+            var duracaoEl = document.querySelector('#resultado');
+
+            if (!h1 || !h2) {
+                duracaoEl.textContent = "Por favor, insira os horários corretamente.";
+                return;
+            }
+
+            var inicio = new Date(`01/01/2000 ${h1}`);
+            var fim = new Date(`01/01/2000 ${h2}`);
+            var diff = fim - inicio;
+
+            if (diff < 0) {
+                duracaoEl.textContent = "O horário de fim não pode ser anterior ao de início.";
+                return;
+            }
+
+            var horas = Math.floor(diff / (1000 * 60 * 60));
+            var minutos = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+            duracaoEl.textContent = `${horas} horas e ${minutos} minutos`;
+        }
+    </script>
+</body>
+</html>
